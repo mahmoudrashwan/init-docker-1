@@ -1,6 +1,6 @@
 FROM php:7.4-fpm
 # Copy composer into the working directory
-#COPY composer.lock composer.json /var/www/html/
+COPY composer.lock composer.json /var/www/html/
 ARG SSH_KEY
 # Set working directory
 WORKDIR /var/www/html/
@@ -44,17 +44,18 @@ RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 RUN mkdir /home/source && cd /home/source
 # Clone Repo
-RUN git clone git@github.com:mahmoudrashwan/laravel-app-1.git
-RUN cp -r /var/www/html/laravel-app-1/. /var/www/html
-RUN rm -rf laravel-app-1
+RUN git clone git@github.com:mahmoudrashwan/laravel-app-1.git .
+#RUN cp -r /var/www/html/laravel-app-1/. /var/www/html
+#RUN rm -rf laravel-app-1
+RUN ls -ll
 
 # Copy env
 COPY ./.env /var/www/html
 
 #COPY Config files
-COPY ./mysql /var/www/html
-COPY ./nginx /var/www/html
-COPY ./php /var/www/html
+COPY ./mysql/ /var/www/html/mysql
+COPY ./nginx/ /var/www/html/nginx
+COPY ./php/ /var/www/html/php
 
 # Assign permissions of the working directory to the www-data user
 RUN chown -R www-data:www-data /var/www/html/storage

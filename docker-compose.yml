@@ -15,7 +15,7 @@ services:
       SERVICE_TAGS: prod
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html
+      - ./:/var/www/html/other
       - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
     networks:
       - ServiceNet
@@ -62,4 +62,3 @@ networks:
 #Volumes
 volumes:
   mysqldata:
-    driver: local
