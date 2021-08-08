@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: dockerfile
-    image: php:alpine
+    image: php
     container_name: app
     restart: unless-stopped
     tty: true
@@ -38,7 +38,7 @@ services:
 
   #MySQL Service
   db:
-    image: mysql:5.7
+    image: mysql:5.7.32
     container_name: db
     restart: unless-stopped
     tty: true
@@ -46,9 +46,9 @@ services:
       - "3306:3306"
     environment:
       MYSQL_DATABASE: laravelapp1
-      MYSQL_USER: laravel_web
-      MYSQL_PASSWORD: 963852@Moo
-      MYSQL_ROOT_PASSWORD: 963852@Moo@root
+      MYSQL_ROOT_PASSWORD: 963852@Moo
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
     volumes:
       - mysqldata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
